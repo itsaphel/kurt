@@ -52,7 +52,7 @@ public class Bot {
         registerCommands();
         registerListeners();
 
-        logger.info("Sentinel start complete!");
+        logger.info("Kurt start complete!");
     }
 
     private void bootstrap() {
@@ -75,16 +75,16 @@ public class Bot {
         commandManager = new CommandManager();
         commandManager.registerCommands();
 
-        logger.finer("Registered commands");
+        logger.finer("Registered commands.");
     }
 
     private void registerListeners() {
         jda.addEventListener(new CommandListener(this));
 
-        new RegionChangeScheduler()
-            .scheduleRegionChanger(config.getModules().getTimeRegionChanger(), jda);
+        regionChangeScheduler = new RegionChangeScheduler();
+        regionChangeScheduler.scheduleRegionChanger(config.getModules().getTimeRegionChanger(), jda);
 
-        logger.finer("Registered listeners");
+        logger.finer("Registered listeners.");
     }
 
     public JDA getJda() {
