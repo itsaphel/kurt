@@ -1,5 +1,6 @@
 package io.indices.discordbots.kurt.commands;
 
+import io.indices.discordbots.kurt.Bot;
 import io.indices.discordbots.kurt.commands.info.HelpCommand;
 import io.indices.discordbots.kurt.commands.info.VersionCommand;
 import io.indices.discordbots.kurt.commands.util.SetTimeRegionsCommand;
@@ -10,6 +11,11 @@ import java.util.Set;
 public class CommandManager {
 
     private Set<Command> commands = new HashSet<>();
+    private Bot main;
+
+    public CommandManager(Bot main) {
+        this.main = main;
+    }
 
     public void registerCommands() {
         // info
@@ -17,7 +23,7 @@ public class CommandManager {
         commands.add(new VersionCommand("kurtversion", "kurtv"));
 
         // util
-        commands.add(new SetTimeRegionsCommand("trset", "settimeregions"));
+        commands.add(new SetTimeRegionsCommand(main, "trset", "settimeregions"));
     }
 
     public Optional<Command> getCommand(String label) {

@@ -20,10 +20,6 @@ public class SetTimeRegionsCommand extends Command {
         this.main = main;
     }
 
-    public SetTimeRegionsCommand(String name, String... aliases) {
-        super(name, aliases);
-    }
-
     @Override
     public void onInvoke(String[] commandArgs, Message message) {
         String[] series = commandArgs[0].split("|");
