@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '2.0.1'
+}
+
+group 'io.indices.discordbots'
+version '0.1'
+mainClassName = group + "." + rootProject.name + ".Bot"
+
+sourceCompatibility = 1.10
+targetCompatibility = 1.10
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    compile 'net.dv8tion:JDA:3.7.+'
+    compile 'com.google.guava:guava:26.0-jre'
+    compile 'com.google.code.gson:gson:2.8.+'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+                'Main-Class': mainClassName,
+                'Implementation-Title': rootProject.name,
+                'Implementation-Version': version
+        )
+    }
+}
+
+shadowJar {
+    mergeServiceFiles()
+    configurations = [project.configurations.compile]
+
+    manifest {
+        inheritFrom jar.manifest
+    }
+}
+
+build.dependsOn shadowJar

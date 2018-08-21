@@ -1,0 +1,11 @@
+{
+  "token": "YourTokenHere",
+  "modules": {
+    "timeRegionChanger": {
+      "0600": "eu_central",
+      "1300": "eu_west",
+      "1900": "us_east"
+    }
+  },
+  "status": "life. !help"
+}
