@@ -4,6 +4,7 @@ import io.indices.discordbots.kurt.Bot;
 import io.indices.discordbots.kurt.commands.info.HelpCommand;
 import io.indices.discordbots.kurt.commands.info.VersionCommand;
 import io.indices.discordbots.kurt.commands.util.SetTimeRegionsCommand;
+import io.indices.discordbots.kurt.commands.util.WolframAlphaCommand;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -24,6 +25,7 @@ public class CommandManager {
 
         // util
         commands.add(new SetTimeRegionsCommand(main, "trset", "settimeregions"));
+        commands.add(new WolframAlphaCommand("wolframalpha", "wolf", "calc"));
     }
 
     public Optional<Command> getCommand(String label) {

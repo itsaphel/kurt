@@ -72,7 +72,7 @@ public class Bot {
     }
 
     private void registerCommands() {
-        commandManager = new CommandManager();
+        commandManager = new CommandManager(this);
         commandManager.registerCommands();
 
         logger.finer("Registered commands.");

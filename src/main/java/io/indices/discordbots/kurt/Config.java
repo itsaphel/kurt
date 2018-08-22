@@ -14,6 +14,9 @@ class Config {
     @Since(0.1)
     private Modules modules;
 
+    @Since(0.1)
+    private APIs apis;
+
     public String getToken() {
         return token;
     }
@@ -34,5 +37,13 @@ class Modules {
 
     public Map<String, String> getTimeRegionChanger() {
         return timeRegionChanger;
+    }
+}
+
+class APIs {
+    private String wolframAlphaApiKey;
+
+    public String getWolframAlphaApiKey() {
+        return wolframAlphaApiKey;
     }
 }

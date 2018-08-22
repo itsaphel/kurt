@@ -7,5 +7,8 @@
       "1900": "us_east"
     }
   },
+  "apis": {
+    "wolframAlphaApiKey": ""
+  },
   "status": "life. !help"
 }
