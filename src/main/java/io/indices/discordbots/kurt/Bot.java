@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import io.indices.discordbots.kurt.commands.CommandManager;
+import io.indices.discordbots.kurt.rest.WolframApi;
 import io.indices.discordbots.kurt.listeners.CommandListener;
 import io.indices.discordbots.kurt.schedulers.RegionChangeScheduler;
 import java.io.FileNotFoundException;
@@ -30,6 +31,7 @@ public class Bot {
 
     private CommandManager commandManager;
     private RegionChangeScheduler regionChangeScheduler;
+    private WolframApi wolframApi;
 
     public static void main(String[] args) throws InterruptedException {
         Bot bot = new Bot();
@@ -48,6 +50,8 @@ public class Bot {
             .setGame(Game.playing(config.getStatus()))
             .setEventManager(new AnnotatedEventManager())
             .buildBlocking();
+
+        wolframApi = new WolframApi(this, config.getApis().getWolframAlphaApiKey());
 
         registerCommands();
         registerListeners();
@@ -82,7 +86,8 @@ public class Bot {
         jda.addEventListener(new CommandListener(this));
 
         regionChangeScheduler = new RegionChangeScheduler();
-        regionChangeScheduler.scheduleRegionChanger(config.getModules().getTimeRegionChanger(), jda);
+        regionChangeScheduler
+            .scheduleRegionChanger(config.getModules().getTimeRegionChanger(), jda);
 
         logger.finer("Registered listeners.");
     }
@@ -101,5 +106,9 @@ public class Bot {
 
     public RegionChangeScheduler getRegionChangeScheduler() {
         return regionChangeScheduler;
+    }
+
+    public WolframApi getWolframApi() {
+        return wolframApi;
     }
 }

@@ -25,12 +25,12 @@ public class CommandManager {
 
         // util
         commands.add(new SetTimeRegionsCommand(main, "trset", "settimeregions"));
-        commands.add(new WolframAlphaCommand("wolframalpha", "wolf", "calc"));
+        commands.add(new WolframAlphaCommand(main, "wolframalpha", "wolf", "calc"));
     }
 
     public Optional<Command> getCommand(String label) {
         return commands.stream()
-            .filter(cmd -> cmd.name.equalsIgnoreCase(label))
+            .filter(cmd -> cmd.name.equalsIgnoreCase(label) || cmd.aliases.contains(label))
             .findAny();
     }
 }

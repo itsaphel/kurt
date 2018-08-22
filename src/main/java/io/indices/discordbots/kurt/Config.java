@@ -28,6 +28,10 @@ class Config {
     public Modules getModules() {
         return modules;
     }
+
+    public APIs getApis() {
+        return apis;
+    }
 }
 
 class Modules {

@@ -1,22 +1,22 @@
-package io.indices.discordbots.kurt.commands.info;
+package io.indices.discordbots.kurt.commands.log;
 
 import io.indices.discordbots.kurt.commands.Command;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 
-public class VersionCommand extends Command {
+public class PurgeLogListenCommand extends Command {
 
-    public VersionCommand(String name, String... aliases) {
+    public PurgeLogListenCommand(String name, String... aliases) {
         super(name, aliases);
     }
 
     @Override
     public void onInvoke(String[] commandArgs, Message message) {
-        message.getChannel().sendMessage("Running version: " + VersionCommand.class.getPackage().getImplementationVersion()).queue();
+
     }
 
     @Override
     public void help(MessageChannel user) {
-        //
+
     }
 }
