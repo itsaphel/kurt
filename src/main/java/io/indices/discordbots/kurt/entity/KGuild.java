@@ -1,4 +1,4 @@
-package io.indices.discordbots.kurt.guild;
+package io.indices.discordbots.kurt.entity;
 
 import net.dv8tion.jda.core.entities.Guild;
 

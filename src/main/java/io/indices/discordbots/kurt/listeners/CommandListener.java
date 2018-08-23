@@ -31,7 +31,7 @@ public class CommandListener {
 
             String commandLabel = args[0].substring(1);
             main.getCommandManager().getCommand(commandLabel).ifPresent(command -> {
-                command.onInvoke(Arrays.copyOfRange(args, 1, args.length), event.getMessage());
+                command.invoke(Arrays.copyOfRange(args, 1, args.length), event.getMessage());
             });
         }
     }

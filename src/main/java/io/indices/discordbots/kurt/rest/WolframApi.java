@@ -13,6 +13,8 @@ import java.util.logging.Logger;
 
 public class WolframApi {
 
+    private static String BASE_URL = "http://api.wolframalpha.com/v2";
+
     private Bot main;
     private String apiKey;
     private Logger logger = Logger.getLogger(WolframApi.class.getName());
@@ -21,8 +23,6 @@ public class WolframApi {
         this.main = main;
         this.apiKey = apiKey;
     }
-
-    private static String BASE_URL = "http://api.wolframalpha.com/v2";
 
     public Optional<String> getQueryImage(String inputString) {
         String queryImage = null;

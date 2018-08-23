@@ -4,6 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import io.indices.discordbots.kurt.commands.CommandManager;
+import io.indices.discordbots.kurt.entity.KGuild;
+import io.indices.discordbots.kurt.entity.KUser;
+import io.indices.discordbots.kurt.rest.UrbanDictionaryApi;
 import io.indices.discordbots.kurt.rest.WolframApi;
 import io.indices.discordbots.kurt.listeners.CommandListener;
 import io.indices.discordbots.kurt.schedulers.RegionChangeScheduler;
@@ -11,6 +14,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.security.auth.login.LoginException;
@@ -18,6 +25,8 @@ import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.hooks.AnnotatedEventManager;
 
 public class Bot {
@@ -32,6 +41,9 @@ public class Bot {
     private CommandManager commandManager;
     private RegionChangeScheduler regionChangeScheduler;
     private WolframApi wolframApi;
+    private UrbanDictionaryApi urbanDictionaryApi;
+
+    public static final List<String> botAdmins = new ArrayList<>();
 
     public static void main(String[] args) throws InterruptedException {
         Bot bot = new Bot();
@@ -52,6 +64,7 @@ public class Bot {
             .buildBlocking();
 
         wolframApi = new WolframApi(this, config.getApis().getWolframAlphaApiKey());
+        urbanDictionaryApi = new UrbanDictionaryApi();
 
         registerCommands();
         registerListeners();
@@ -110,5 +123,9 @@ public class Bot {
 
     public WolframApi getWolframApi() {
         return wolframApi;
+    }
+
+    public UrbanDictionaryApi getUrbanDictionaryApi() {
+        return urbanDictionaryApi;
     }
 }

@@ -4,6 +4,7 @@ import io.indices.discordbots.kurt.Bot;
 import io.indices.discordbots.kurt.commands.info.HelpCommand;
 import io.indices.discordbots.kurt.commands.info.VersionCommand;
 import io.indices.discordbots.kurt.commands.util.SetTimeRegionsCommand;
+import io.indices.discordbots.kurt.commands.util.UrbanDictionaryCommand;
 import io.indices.discordbots.kurt.commands.util.WolframAlphaCommand;
 import java.util.HashSet;
 import java.util.Optional;
@@ -24,8 +25,9 @@ public class CommandManager {
         commands.add(new VersionCommand("kurtversion", "kurtv"));
 
         // util
-        commands.add(new SetTimeRegionsCommand(main, "trset", "settimeregions"));
-        commands.add(new WolframAlphaCommand(main, "wolframalpha", "wolf", "calc"));
+        commands.add(new SetTimeRegionsCommand(main, "trset", Permission.GUILD_ADMIN, "settimeregions"));
+        commands.add(new UrbanDictionaryCommand(main, "urban"));
+        commands.add(new WolframAlphaCommand(main, "wolframalpha", "wolf", "calc", "tellme"));
     }
 
     public Optional<Command> getCommand(String label) {
