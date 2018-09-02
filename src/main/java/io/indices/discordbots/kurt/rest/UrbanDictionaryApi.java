@@ -4,7 +4,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import com.mashape.unirest.request.HttpRequestWithBody;
+import com.mashape.unirest.request.GetRequest;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -17,6 +17,7 @@ public class UrbanDictionaryApi {
 
         try {
             HttpResponse<JsonNode> response = request("define", new String[]{"term", term});
+
             if (response.getStatus() == 200) {
                 definition = response.getBody().getObject()
                   .getJSONArray("list")
@@ -32,7 +33,7 @@ public class UrbanDictionaryApi {
     }
 
     private HttpResponse<JsonNode> request(String requestUri, String[]... queries) throws UnirestException {
-        HttpRequestWithBody request = Unirest.post(BASE_URL + "/" + requestUri);
+        GetRequest request = Unirest.get(BASE_URL + "/" + requestUri);
 
         Arrays.stream(queries).forEach(query -> request.queryString(query[0], query[1]));
 

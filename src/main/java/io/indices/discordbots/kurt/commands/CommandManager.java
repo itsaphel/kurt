@@ -32,7 +32,7 @@ public class CommandManager {
 
     public Optional<Command> getCommand(String label) {
         return commands.stream()
-            .filter(cmd -> cmd.name.equalsIgnoreCase(label) || cmd.aliases.contains(label))
-            .findAny();
+          .filter(cmd -> cmd.name.equalsIgnoreCase(label) || cmd.aliases.contains(label))
+          .findAny();
     }
 }

@@ -29,7 +29,7 @@ public abstract class Command {
 
     private boolean checkPermissions(Message message) {
         if (getRequiredPermission() == Permission.USER
-        || Bot.botAdmins.contains(message.getAuthor().getId())) {
+          || Bot.botAdmins.contains(message.getAuthor().getId())) {
             return true;
         }
 

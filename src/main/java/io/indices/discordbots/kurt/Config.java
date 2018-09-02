@@ -45,6 +45,7 @@ class Modules {
 }
 
 class APIs {
+
     private String wolframAlphaApiKey;
 
     public String getWolframAlphaApiKey() {

@@ -4,20 +4,17 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import io.indices.discordbots.kurt.commands.CommandManager;
-import io.indices.discordbots.kurt.entity.KGuild;
-import io.indices.discordbots.kurt.entity.KUser;
+import io.indices.discordbots.kurt.listeners.CommandListener;
+import io.indices.discordbots.kurt.listeners.CorrectionListener;
 import io.indices.discordbots.kurt.rest.UrbanDictionaryApi;
 import io.indices.discordbots.kurt.rest.WolframApi;
-import io.indices.discordbots.kurt.listeners.CommandListener;
 import io.indices.discordbots.kurt.schedulers.RegionChangeScheduler;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.security.auth.login.LoginException;
@@ -25,13 +22,12 @@ import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.hooks.AnnotatedEventManager;
 
 public class Bot {
 
     public static String CHAT_PREFIX = "!";
+    public static Logger TEST_LOGGER = Logger.getLogger("TEST LOGGER");
     private static final Logger logger = Logger.getLogger(Bot.class.getName());
 
     private Gson gson;
@@ -52,16 +48,16 @@ public class Bot {
             bot.start();
         } catch (LoginException e) {
             logger.log(Level.SEVERE,
-                "Error logging into Discord using provided token - shutting down!", e);
+              "Error logging into Discord using provided token - shutting down!", e);
         }
     }
 
     private void start() throws LoginException, InterruptedException {
         jda = new JDABuilder(AccountType.BOT)
-            .setToken(config.getToken())
-            .setGame(Game.playing(config.getStatus()))
-            .setEventManager(new AnnotatedEventManager())
-            .buildBlocking();
+          .setToken(config.getToken())
+          .setGame(Game.playing(config.getStatus()))
+          .setEventManager(new AnnotatedEventManager())
+          .buildBlocking();
 
         wolframApi = new WolframApi(this, config.getApis().getWolframAlphaApiKey());
         urbanDictionaryApi = new UrbanDictionaryApi();
@@ -74,14 +70,14 @@ public class Bot {
 
     private void bootstrap() {
         gson = new GsonBuilder().setPrettyPrinting()
-            .setVersion(Double.parseDouble(Bot.class.getPackage().getImplementationVersion()))
-            .create();
+          .setVersion(Double.parseDouble(Bot.class.getPackage().getImplementationVersion()))
+          .create();
 
         try {
             Path currentDir = Paths.get(".").toAbsolutePath().normalize();
             config = gson.fromJson(
-                new JsonReader(new FileReader(currentDir.resolve("config.json").toFile())),
-                Config.class);
+              new JsonReader(new FileReader(currentDir.resolve("config.json").toFile())),
+              Config.class);
         } catch (FileNotFoundException e) {
             logger.log(Level.SEVERE, "Could not load config.json - shutting down!", e);
             System.exit(1);
@@ -97,10 +93,11 @@ public class Bot {
 
     private void registerListeners() {
         jda.addEventListener(new CommandListener(this));
+        jda.addEventListener(new CorrectionListener(this));
 
         regionChangeScheduler = new RegionChangeScheduler();
         regionChangeScheduler
-            .scheduleRegionChanger(config.getModules().getTimeRegionChanger(), jda);
+          .scheduleRegionChanger(config.getModules().getTimeRegionChanger(), jda);
 
         logger.finer("Registered listeners.");
     }

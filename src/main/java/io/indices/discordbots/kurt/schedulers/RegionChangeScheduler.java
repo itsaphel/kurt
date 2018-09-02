@@ -25,10 +25,10 @@ public class RegionChangeScheduler {
 
         defaults.forEach((time, regionKey) -> {
             ZonedDateTime zonedDateTime = ZonedDateTime
-                .of(LocalDateTime.now(), ZoneId.of("UTC"))
-                .withHour(Integer.parseInt(time.substring(0, 2)))
-                .withMinute(Integer.parseInt(time.substring(2, 4)))
-                .withSecond(0);
+              .of(LocalDateTime.now(), ZoneId.of("UTC"))
+              .withHour(Integer.parseInt(time.substring(0, 2)))
+              .withMinute(Integer.parseInt(time.substring(2, 4)))
+              .withSecond(0);
 
             long startTime = LocalDateTime.now().until(zonedDateTime, ChronoUnit.MINUTES);
 

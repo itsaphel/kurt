@@ -31,9 +31,9 @@ public class SetTimeRegionsCommand extends Command {
         String[] series = commandArgs[0].split("|");
 
         if (commandArgs.length != 1
-            || !Arrays.stream(series).allMatch(p -> p.matches(ARG_SYNTAX_REGEX))
-            || !PermissionUtil.checkPermission(message.getGuild().getMember(message.getAuthor()),
-            net.dv8tion.jda.core.Permission.MANAGE_SERVER)) {
+          || !Arrays.stream(series).allMatch(p -> p.matches(ARG_SYNTAX_REGEX))
+          || !PermissionUtil.checkPermission(message.getGuild().getMember(message.getAuthor()),
+          net.dv8tion.jda.core.Permission.MANAGE_SERVER)) {
             help(message.getChannel());
             return;
         }

@@ -27,16 +27,16 @@ public class WolframAlphaCommand extends Command {
         message.getChannel().sendTyping().queue();
 
         main.getWolframApi().getQueryImage(String.join(" ", commandArgs))
-            .ifPresentOrElse(present -> {
-                try {
-                    BufferedImage imageStream = ImageIO.read(new URL(present));
-                    File file = new File("WolframOutput.gif");
-                    ImageIO.write(imageStream, "gif", file);
-                    message.getChannel().sendFile(file).queue();
-                } catch (IOException e) {
-                    logger.log(Level.WARNING, "Failed to parse URL from Wolfram API", e);
-                }
-            }, () -> message.getChannel().sendMessage("No results for query.").queue());
+          .ifPresentOrElse(present -> {
+              try {
+                  BufferedImage imageStream = ImageIO.read(new URL(present));
+                  File file = new File("WolframOutput.gif");
+                  ImageIO.write(imageStream, "gif", file);
+                  message.getChannel().sendFile(file).queue();
+              } catch (IOException e) {
+                  logger.log(Level.WARNING, "Failed to parse URL from Wolfram API", e);
+              }
+          }, () -> message.getChannel().sendMessage("No results for query.").queue());
     }
 
     @Override
