@@ -1,16 +1,15 @@
-package io.indices.discordbots.kurt.commands.util;
+package io.indices.discordbots.kurt.command.util;
 
-import io.indices.discordbots.kurt.commands.Command;
-import io.indices.discordbots.kurt.commands.Permission;
-import io.indices.discordbots.kurt.schedulers.RegionChangeScheduler;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.utils.PermissionUtil;
-
-import javax.inject.Inject;
+import io.indices.discordbots.kurt.command.Command;
+import io.indices.discordbots.kurt.command.Permission;
+import io.indices.discordbots.kurt.scheduler.RegionChangeScheduler;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import javax.inject.Inject;
+import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.MessageChannel;
+import net.dv8tion.jda.core.utils.PermissionUtil;
 
 public class SetTimeRegionsCommand extends Command {
 
@@ -34,9 +33,9 @@ public class SetTimeRegionsCommand extends Command {
         String[] series = commandArgs[0].split("|");
 
         if (commandArgs.length != 1
-                || !Arrays.stream(series).allMatch(p -> p.matches(ARG_SYNTAX_REGEX))
-                || !PermissionUtil.checkPermission(message.getGuild().getMember(message.getAuthor()),
-                net.dv8tion.jda.core.Permission.MANAGE_SERVER)) {
+          || !Arrays.stream(series).allMatch(p -> p.matches(ARG_SYNTAX_REGEX))
+          || !PermissionUtil.checkPermission(message.getGuild().getMember(message.getAuthor()),
+          net.dv8tion.jda.core.Permission.MANAGE_SERVER)) {
             help(message.getChannel());
             return;
         }

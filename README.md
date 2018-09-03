@@ -11,3 +11,7 @@ See the wiki.
 ### Contributing
 
 Contributions are always welcome.
+
+### License
+
+All rights reserved. Kurt may be subject to relicensing in the future, when an appropriate license is found,

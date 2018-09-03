@@ -1,20 +1,24 @@
-package io.indices.discordbots.kurt.listeners;
+package io.indices.discordbots.kurt.listener;
 
 import io.indices.discordbots.kurt.Bot;
-import io.indices.discordbots.kurt.commands.CommandManager;
+import io.indices.discordbots.kurt.command.CommandModule;
+import java.util.Arrays;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import lombok.extern.java.Log;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.SubscribeEvent;
 
-import javax.inject.Inject;
-import java.util.Arrays;
-
+@Log
+@Singleton
 public class CommandListener {
 
     @Inject
-    private CommandManager commandManager;
+    private CommandModule commandModule;
 
     @SubscribeEvent
     public void onCommand(MessageReceivedEvent event) {
+        log.info("Received message: " + event.getMessage().getContentRaw());
         String rawMessage = event.getMessage().getContentRaw();
 
         if (rawMessage.startsWith(Bot.CHAT_PREFIX)) {
@@ -26,9 +30,8 @@ public class CommandListener {
             }
 
             String commandLabel = args[0].substring(1);
-            commandManager.getCommand(commandLabel).ifPresent(command -> {
-                command.invoke(Arrays.copyOfRange(args, 1, args.length), event.getMessage());
-            });
+            commandModule.getCommand(commandLabel)
+              .ifPresent(command -> command.invoke(Arrays.copyOfRange(args, 1, args.length), event.getMessage()));
         }
     }
 }

@@ -1,4 +1,4 @@
-package io.indices.discordbots.kurt.commands;
+package io.indices.discordbots.kurt.command;
 
 public enum Permission {
     BOT_ADMIN,

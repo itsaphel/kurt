@@ -4,12 +4,16 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '2.0.1'
 }
 
+plugins {
+    id 'net.ltgt.apt' version '0.10'
+}
+
 group 'io.indices.discordbots'
-version '0.1'
+version '0.2'
 mainClassName = group + "." + rootProject.name + ".Bot"
 
-sourceCompatibility = 1.10
-targetCompatibility = 1.10
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
@@ -23,6 +27,11 @@ dependencies {
     compile 'com.mashape.unirest:unirest-java:1.4.9'
     compile 'org.hibernate:hibernate-core:5.3.5.Final'
     compile 'com.google.inject:guice:4.2.0'
+    compile 'mysql:mysql-connector-java:8.0.12'
+
+    compileOnly 'org.projectlombok:lombok:1.18.2'
+
+    apt 'org.projectlombok:lombok:1.18.2'
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
@@ -46,5 +55,7 @@ shadowJar {
         inheritFrom jar.manifest
     }
 }
+
+
 
 build.dependsOn shadowJar

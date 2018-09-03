@@ -1,7 +1,7 @@
-package io.indices.discordbots.kurt.commands.admin;
+package io.indices.discordbots.kurt.command.admin;
 
 import io.indices.discordbots.kurt.Bot;
-import io.indices.discordbots.kurt.commands.Command;
+import io.indices.discordbots.kurt.command.Command;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 

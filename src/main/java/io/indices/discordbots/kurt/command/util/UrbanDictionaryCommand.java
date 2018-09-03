@@ -1,11 +1,11 @@
-package io.indices.discordbots.kurt.commands.util;
+package io.indices.discordbots.kurt.command.util;
 
-import io.indices.discordbots.kurt.commands.Command;
+import io.indices.discordbots.kurt.command.Command;
 import io.indices.discordbots.kurt.rest.UrbanDictionaryApi;
+import java.util.Optional;
+import javax.inject.Inject;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
-
-import javax.inject.Inject;
 
 public class UrbanDictionaryCommand extends Command {
 
@@ -24,10 +24,13 @@ public class UrbanDictionaryCommand extends Command {
 
         message.getChannel().sendTyping().queue();
 
-        urbanDictionaryApi.getDefinition(commandArgs[0]).ifPresentOrElse(
-                present -> message.getChannel().sendMessage(commandArgs[0] + ": " + present).queue(),
-                () -> message.getChannel().sendMessage("Couldn't get an Urban Dictionary definition for that term.").queue()
-        );
+        Optional<String> optDef = urbanDictionaryApi.getDefinition(commandArgs[0]);
+
+        if (optDef.isPresent()) {
+            message.getChannel().sendMessage(commandArgs[0] + ": " + optDef.get()).queue();
+        } else {
+            message.getChannel().sendMessage("Couldn't get an Urban Dictionary definition for that term.").queue();
+        }
     }
 
     @Override

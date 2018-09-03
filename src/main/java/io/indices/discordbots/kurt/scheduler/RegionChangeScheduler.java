@@ -1,8 +1,4 @@
-package io.indices.discordbots.kurt.schedulers;
-
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.Region;
-import net.dv8tion.jda.core.entities.Guild;
+package io.indices.discordbots.kurt.scheduler;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -13,7 +9,12 @@ import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import javax.inject.Singleton;
+import net.dv8tion.jda.core.JDA;
+import net.dv8tion.jda.core.Region;
+import net.dv8tion.jda.core.entities.Guild;
 
+@Singleton
 public class RegionChangeScheduler {
 
     private Map<String, Map<Guild, String>> customGuildSchedules = new HashMap<>();
@@ -26,10 +27,10 @@ public class RegionChangeScheduler {
 
         defaults.forEach((time, regionKey) -> {
             ZonedDateTime zonedDateTime = ZonedDateTime
-                    .of(LocalDateTime.now(), ZoneId.of("UTC"))
-                    .withHour(Integer.parseInt(time.substring(0, 2)))
-                    .withMinute(Integer.parseInt(time.substring(2, 4)))
-                    .withSecond(0);
+              .of(LocalDateTime.now(), ZoneId.of("UTC"))
+              .withHour(Integer.parseInt(time.substring(0, 2)))
+              .withMinute(Integer.parseInt(time.substring(2, 4)))
+              .withSecond(0);
 
             long startTime = LocalDateTime.now().until(zonedDateTime, ChronoUnit.MINUTES);
 

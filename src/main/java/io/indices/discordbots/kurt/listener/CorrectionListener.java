@@ -1,9 +1,11 @@
-package io.indices.discordbots.kurt.listeners;
+package io.indices.discordbots.kurt.listener;
 
+import javax.inject.Singleton;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.SubscribeEvent;
 
+@Singleton
 public class CorrectionListener {
 
     @SubscribeEvent
@@ -24,10 +26,14 @@ public class CorrectionListener {
 
     private void sendCorrectionMessage(Message correctionMsg, String extract, String replacement) {
         correctionMsg.getChannel().getHistoryBefore(correctionMsg, 25).queue(msgs -> {
-            msgs.getRetrievedHistory().stream().filter(msg -> msg.getContentRaw().contains(extract)).findFirst().ifPresent(targetMessage -> {
-                String replaced = targetMessage.getContentRaw().replace(extract, "**" + replacement + "**");
+            msgs.getRetrievedHistory().stream().filter(msg -> msg.getContentRaw().contains(extract))
+              .findFirst().ifPresent(targetMessage -> {
+                String replaced = targetMessage.getContentRaw()
+                  .replace(extract, "**" + replacement + "**");
 
-                correctionMsg.getChannel().sendMessage("Correction, " + correctionMsg.getAuthor().getAsMention() + ", " + replaced).queue();
+                correctionMsg.getChannel().sendMessage(
+                  "Correction, " + correctionMsg.getAuthor().getAsMention() + ", " + replaced)
+                  .queue();
             });
         });
     }

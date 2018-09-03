@@ -10,5 +10,14 @@
   "apis": {
     "wolframAlphaApiKey": ""
   },
+  "db": {
+    "username": "dev",
+    "password": "password",
+    "driver": "com.mysql.jdbc.Driver",
+    "url": "jdbc:mysql://localhost:3306/kurt",
+    "dialect": "org.hibernate.dialect.MySQL5Dialect",
+    "poolSize": 10,
+    "initialTableCreation": true
+  },
   "status": "life. !help"
 }

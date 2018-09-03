@@ -1,0 +1,3 @@
+* Hibernate
+* Voice recognition
+* Logging
