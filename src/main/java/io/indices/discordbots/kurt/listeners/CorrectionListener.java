@@ -1,17 +1,10 @@
 package io.indices.discordbots.kurt.listeners;
 
-import io.indices.discordbots.kurt.Bot;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.SubscribeEvent;
 
 public class CorrectionListener {
-
-    private Bot main;
-
-    public CorrectionListener(Bot main) {
-        this.main = main;
-    }
 
     @SubscribeEvent
     public void onCorrection(MessageReceivedEvent event) {

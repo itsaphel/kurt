@@ -5,18 +5,23 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.GetRequest;
-import io.indices.discordbots.kurt.Bot;
+import org.json.JSONArray;
+
+import javax.inject.Named;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
-import org.json.JSONArray;
 
 public class UrbanDictionaryApi {
+
+    @Named("RunDir")
+    private Path currentDir;
 
     private static String BASE_URL = "https://api.urbandictionary.com/v0";
     private List<String> blacklistedWords = new ArrayList<>();
@@ -29,12 +34,12 @@ public class UrbanDictionaryApi {
 
             if (response.getStatus() == 200) {
                 JSONArray array = response.getBody().getObject()
-                  .getJSONArray("list");
+                        .getJSONArray("list");
 
                 if (!array.isNull(0)) {
                     definition = array
-                      .getJSONObject(0)
-                      .getString("definition");
+                            .getJSONObject(0)
+                            .getString("definition");
                 }
             }
 
@@ -46,7 +51,7 @@ public class UrbanDictionaryApi {
     }
 
     public void loadBlacklistedWords() throws FileNotFoundException, IOException {
-        try (Stream<String> stream = Files.lines(Bot.currentDir.resolve("urbanblacklist"))) {
+        try (Stream<String> stream = Files.lines(currentDir.resolve("urbanblacklist"))) {
             stream.forEach(s -> blacklistedWords.add(s));
         }
     }

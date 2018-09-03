@@ -1,6 +1,7 @@
 package io.indices.discordbots.kurt;
 
 import com.google.gson.annotations.Since;
+
 import java.util.Map;
 
 class Config {

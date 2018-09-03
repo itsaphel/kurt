@@ -1,5 +1,9 @@
 package io.indices.discordbots.kurt.schedulers;
 
+import net.dv8tion.jda.core.JDA;
+import net.dv8tion.jda.core.Region;
+import net.dv8tion.jda.core.entities.Guild;
+
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -9,9 +13,6 @@ import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.Region;
-import net.dv8tion.jda.core.entities.Guild;
 
 public class RegionChangeScheduler {
 
@@ -25,10 +26,10 @@ public class RegionChangeScheduler {
 
         defaults.forEach((time, regionKey) -> {
             ZonedDateTime zonedDateTime = ZonedDateTime
-              .of(LocalDateTime.now(), ZoneId.of("UTC"))
-              .withHour(Integer.parseInt(time.substring(0, 2)))
-              .withMinute(Integer.parseInt(time.substring(2, 4)))
-              .withSecond(0);
+                    .of(LocalDateTime.now(), ZoneId.of("UTC"))
+                    .withHour(Integer.parseInt(time.substring(0, 2)))
+                    .withMinute(Integer.parseInt(time.substring(2, 4)))
+                    .withSecond(0);
 
             long startTime = LocalDateTime.now().until(zonedDateTime, ChronoUnit.MINUTES);
 
