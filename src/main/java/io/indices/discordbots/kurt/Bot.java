@@ -11,6 +11,7 @@ import io.indices.discordbots.kurt.rest.WolframApi;
 import io.indices.discordbots.kurt.schedulers.RegionChangeScheduler;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class Bot {
 
     public static String CHAT_PREFIX = "!";
     public static Logger TEST_LOGGER = Logger.getLogger("TEST LOGGER");
+    public static Path currentDir;
     private static final Logger logger = Logger.getLogger(Bot.class.getName());
 
     private Gson gson;
@@ -61,9 +63,16 @@ public class Bot {
 
         wolframApi = new WolframApi(this, config.getApis().getWolframAlphaApiKey());
         urbanDictionaryApi = new UrbanDictionaryApi();
+        try {
+            urbanDictionaryApi.loadBlacklistedWords();
+        } catch (IOException e) {
+            logger.log(Level.WARNING, "Error loading blacklisted words for Urban Dictionary.");
+        }
 
         registerCommands();
         registerListeners();
+
+        botAdmins.add("109976255725621248");
 
         logger.info("Kurt start complete!");
     }
@@ -74,7 +83,7 @@ public class Bot {
           .create();
 
         try {
-            Path currentDir = Paths.get(".").toAbsolutePath().normalize();
+            currentDir = Paths.get(".").toAbsolutePath().normalize();
             config = gson.fromJson(
               new JsonReader(new FileReader(currentDir.resolve("config.json").toFile())),
               Config.class);

@@ -1,6 +1,7 @@
 package io.indices.discordbots.kurt.commands;
 
 import io.indices.discordbots.kurt.Bot;
+import io.indices.discordbots.kurt.commands.admin.SayCommand;
 import io.indices.discordbots.kurt.commands.info.HelpCommand;
 import io.indices.discordbots.kurt.commands.info.VersionCommand;
 import io.indices.discordbots.kurt.commands.util.SetTimeRegionsCommand;
@@ -28,6 +29,9 @@ public class CommandManager {
         commands.add(new SetTimeRegionsCommand(main, "trset", Permission.GUILD_ADMIN, "settimeregions"));
         commands.add(new UrbanDictionaryCommand(main, "urban"));
         commands.add(new WolframAlphaCommand(main, "wolframalpha", "wolf", "calc", "tellme"));
+
+        // admin
+        commands.add(new SayCommand("say"));
     }
 
     public Optional<Command> getCommand(String label) {

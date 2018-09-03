@@ -16,6 +16,10 @@ public class UrbanDictionaryCommand extends Command {
 
     @Override
     public void onInvoke(String[] commandArgs, Message message) {
+        if (main.getUrbanDictionaryApi().getBlacklistedWords().contains(commandArgs[0])) {
+            return;
+        }
+
         message.getChannel().sendTyping().queue();
 
         main.getUrbanDictionaryApi().getDefinition(commandArgs[0]).ifPresentOrElse(
